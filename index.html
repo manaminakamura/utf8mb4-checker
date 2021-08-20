@@ -1,13 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>utf8mb4 checker</title>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
+
 <body>
   <h1>utf8mb4 checker</h1>
+  <textarea id="inputtext" rows="10" cols="60" placeholder="ここに入力してください"></textarea>
+  <button onclick="myFunc()">
+    送信
+  </button>
+  <label>置換文字列</label>
+  <input type="text" id="replaceby" />
+  <div>
+    <h3>ハイライト</h3>
+    <div id="highlighed"></div>
+  </div>
+  <div>
+    <h3>ハイライト+置換</h3>
+    <div id="replaced"></div>
+  </div>
 </body>
+<script>
+  myFunc = () => {
+    const val = document.getElementById("inputtext").value;
+    const replaceby = document.getElementById("replaceby").value;
+    console.log(replaceby);
+    document.getElementById("highlighed").innerHTML = utf8mb4Highlight(val);
+    document.getElementById("replaced").innerHTML = utf8mb4Replace(val, replaceby);
+  }
+  utf8mb4Highlight = (str) => {
+    const re = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+    return str.replace(re, (match) => `<span class="highlighted">${match}</span>`)
+  }
+  utf8mb4Replace = (str, replaceby) => {
+    const re = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+    return str.replace(re, (match) => `<span class="highlighted">${replaceby}</span>`)
+  }
+</script>
+
 </html>

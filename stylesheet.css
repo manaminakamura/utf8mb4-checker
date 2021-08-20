@@ -1,0 +1,6 @@
+div {
+    min-height: 100px;
+}
+.highlighted {
+    background: linear-gradient(transparent 0%, #f6ff5f 0%);
+}
